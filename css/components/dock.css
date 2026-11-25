@@ -1,0 +1,14 @@
+.dock-btn {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+.dock-btn:active {
+  transform: scale(0.96);
+}
+.btn-amber:hover { border-color: rgba(251, 191, 36, 0.5); box-shadow: 0 0 15px rgba(251, 191, 36, 0.2); }
+.btn-emerald:hover { border-color: rgba(52, 211, 153, 0.5); box-shadow: 0 0 15px rgba(52, 211, 153, 0.2); }
+.btn-indigo:hover { border-color: rgba(129, 140, 248, 0.5); box-shadow: 0 0 15px rgba(129, 140, 248, 0.2); }
+.btn-cyan:hover { border-color: rgba(34, 211, 238, 0.5); box-shadow: 0 0 15px rgba(34, 211, 238, 0.2); }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Life Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/vendor/tailwind-config.js"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components/glass.css">
+  <link rel="stylesheet" href="css/pages/login.css">
+</head>
+<body class="h-full font-sans text-white antialiased overflow-hidden bg-stone-950">
+
+  <!-- Background Warm & Futuristic -->
+  <div class="fixed inset-0 z-0 login-bg"></div>
+  <div class="fixed inset-0 z-0 bg-gradient-to-tr from-black/80 via-black/40 to-amber-900/30 backdrop-blur-sm"></div>
+
+  <!-- Main Container -->
+  <div class="relative z-10 w-full h-full flex items-center justify-center p-4 sm:p-6">
+    <div class="glass-modal-transparent w-full max-w-4xl rounded-3xl overflow-hidden flex flex-col md:flex-row border border-white/20 shadow-[0_0_50px_rgba(251,191,36,0.15)] relative">
+      
+      <!-- Sisi Kiri: Form -->
+      <div class="w-full md:w-1/2 p-6 sm:p-10 flex flex-col justify-center relative z-10">
+        <div class="mb-8 text-center md:text-left">
+          <h1 class="font-serif text-3xl font-bold text-white mb-2">Solitude Life</h1>
+          <p class="text-xs text-stone-300">Masuk atau buat akun untuk memulai simulasi kehidupan Anda.</p>
+        </div>
+
+        <form id="authForm" class="flex flex-col gap-4">
+          <!-- Field Register (Muncul saat Register) -->
+          <div id="registerFields" class="hidden flex-col gap-4">
+            <div>
+              <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1 block">Nama Karakter</label>
+              <input type="text" id="regName" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400 transition-all" placeholder="Masukkan nama...">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1 block">Kota</label>
+                <select id="regCity" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400 transition-all">
+                  <option value="Jakarta">Jakarta</option>
+                  <option value="Bandung">Bandung</option>
+                  <option value="Surabaya">Surabaya</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1 block">Gender</label>
+                <select id="regGender" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400 transition-all">
+                  <option value="Laki-Laki">Laki-Laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1 block">Email</label>
+            <input type="email" id="authEmail" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400 transition-all" placeholder="email@contoh.com" required>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1 block">Password</label>
+            <input type="password" id="authPassword" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400 transition-all" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" id="btnSubmitAuth" class="w-full py-3 mt-2 bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-stone-900 font-extrabold text-sm rounded-xl transition-all shadow-lg active:scale-95">
+            Masuk
+          </button>
+        </form>
+
+        <div class="mt-6 text-center">
+          <button id="btnToggleAuth" class="text-xs text-stone-400 hover:text-amber-300 transition-colors">
+            Belum punya akun? <span class="font-bold underline text-amber-200">Daftar sekarang</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sisi Kanan: Gambar Dinamis -->
+      <div class="hidden md:block w-1/2 relative bg-stone-900 border-l border-white/10 overflow-hidden">
+        <div id="authImageOverlay" class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"></div>
+        <img id="authImage" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" alt="Character" class="w-full h-full object-cover transition-all duration-700 opacity-80">
+        <div class="absolute bottom-6 left-6 z-20">
+          <h2 class="font-serif text-2xl font-bold text-white shadow-lg">Mulai Perjalanan</h2>
+          <p class="text-[10px] text-amber-200 tracking-widest uppercase font-bold mt-1">Extended Edition</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/pages/login.js"></script>
+</body>
+</html>

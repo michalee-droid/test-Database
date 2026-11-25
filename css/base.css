@@ -1,0 +1,17 @@
+* { -webkit-tap-highlight-color: transparent; }
+html, body { overscroll-behavior: none; }
+body {
+  background: #0c0a09;
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+.blur-bottom-mask {
+  mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+}

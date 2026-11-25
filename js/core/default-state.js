@@ -12,7 +12,7 @@ export const defaultState = {
     sosial: { level: 1, xp: 0 },
     pesona: { level: 1, xp: 0 },
   },
-  time: { month: 0, year: 2026 },
+  time: { month: 0, year: 2026, day: 1, hour: 6 },
   weather: { temp: 28, condition: 'Cerah', icon: 'sun' },
   location: { areaId: 'rumah', roomId: 'kamar-tidur', label: 'Rumah Saya • Kamar Tidur' },
   ownedVehicles: [], // { vehicleId: 'motor', currentLocation: 'lapangan', condition: 100 }

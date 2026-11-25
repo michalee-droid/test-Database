@@ -1,0 +1,53 @@
+<div class="px-3 sm:px-6 pt-3.5 sm:pt-5 bg-gradient-to-t from-black/90 via-stone-950/70 to-transparent backdrop-blur-2xl border-t border-white/15 flex flex-col gap-3">
+  <div class="w-full max-w-5xl mx-auto">
+    <button id="btnFastForwardMonth" class="dock-btn btn-amber elastic-stretch w-full py-2.5 sm:py-3 px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-xl">
+      <div class="p-1.5 sm:p-2 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform shrink-0">
+        <i data-lucide="fast-forward" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+      </div>
+      <span class="font-serif text-xs sm:text-sm font-extrabold text-white tracking-wider">Bulan Depan</span>
+      <i data-lucide="chevrons-right" class="w-4 h-4 text-amber-200/60 ml-auto hidden sm:block shrink-0 group-hover:translate-x-1 transition-transform"></i>
+    </button>
+  </div>
+
+  <div class="w-full max-w-5xl mx-auto grid grid-cols-4 gap-2 sm:gap-4 items-center pb-3.5 sm:pb-5">
+    <button id="btnOpenRoomMenu" class="dock-btn btn-amber elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer group shadow-lg">
+      <div class="p-2 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform shrink-0">
+        <i data-lucide="compass" class="w-5 h-5"></i>
+      </div>
+      <div class="text-left leading-tight min-w-0">
+        <span class="text-[9px] uppercase font-black tracking-widest text-amber-200/80 block truncate">Navigasi</span>
+        <span id="currentRoomNameDisplay" class="font-serif text-xs font-extrabold text-white block truncate">—</span>
+      </div>
+    </button>
+
+    <button id="btnOpenActivitiesMenu" class="dock-btn btn-emerald elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer group shadow-lg">
+      <div class="p-2 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform shrink-0">
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+      </div>
+      <div class="text-left leading-tight min-w-0">
+        <span class="text-[9px] uppercase font-black tracking-widest text-emerald-200/80 block truncate">Tindakan</span>
+        <span class="font-serif text-xs font-extrabold text-white block truncate">Aktivitas</span>
+      </div>
+    </button>
+
+    <a id="btnOpenSmartphone" href="smartphone.html" class="dock-btn btn-indigo elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer group shadow-lg">
+      <div class="p-2 rounded-xl bg-indigo-400/20 border border-indigo-300/40 text-indigo-300 group-hover:scale-110 transition-transform shrink-0">
+        <i data-lucide="smartphone" class="w-5 h-5"></i>
+      </div>
+      <div class="text-left leading-tight min-w-0">
+        <span class="text-[9px] uppercase font-black tracking-widest text-indigo-200/80 block truncate">Perangkat</span>
+        <span class="font-serif text-xs font-extrabold text-white block truncate">Smartphone</span>
+      </div>
+    </a>
+
+    <button id="btnOpenTransportModal" class="dock-btn btn-cyan elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer group shadow-lg">
+      <div class="p-2 rounded-xl bg-cyan-400/20 border border-cyan-300/40 text-cyan-300 group-hover:scale-110 transition-transform shrink-0">
+        <i data-lucide="map-pin" class="w-5 h-5"></i>
+      </div>
+      <div class="text-left leading-tight min-w-0">
+        <span class="text-[9px] uppercase font-black tracking-widest text-cyan-200/80 block truncate">Wilayah</span>
+        <span class="font-serif text-xs font-extrabold text-white block truncate">Lokasi</span>
+      </div>
+    </button>
+  </div>
+</div>

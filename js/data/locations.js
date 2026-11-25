@@ -1,0 +1,21 @@
+export const AREAS = {
+  'rumah': { name: 'Rumah Saya', rooms: ['Kamar Tidur', 'Dapur', 'Ruang Tamu'] },
+  'kampus': { name: 'Kampus', rooms: ['Ruang Kelas', 'Perpustakaan', 'Kantin', 'Rektorat'] },
+  'pasar': { name: 'Pasar Tradisional', rooms: ['Kios Sayur', 'Kios Daging', 'Area Parkir'] },
+  'mall': { name: 'Mall Kota', rooms: ['Bioskop', 'Food Court', 'Toko Baju', 'Atrium'] },
+  'dealer': { name: 'Dealer Kendaraan', rooms: ['Showroom Motor', 'Showroom Mobil', 'Kasir'] },
+  'casino': { name: 'Casino', rooms: ['Meja Roulette', 'Meja Blackjack', 'Area VIP'] },
+  'mesjid': { name: 'Masjid Agung', rooms: ['Ruang Sholat Utama', 'Tempat Wudhu', 'Serambi'] },
+  'kafe': { name: 'Kafe Senja', rooms: ['Area Indoor', 'Area Outdoor', 'Bar'] },
+  'restoran': { name: 'Restoran Bintang 5', rooms: ['Meja VIP', 'Meja Reguler', 'Dapur'] },
+  'warung': { name: 'Warung Makan', rooms: ['Meja Makan', 'Etalase'] },
+  'sekolah': { name: 'Sekolah', rooms: ['Ruang Kelas SD', 'Ruang Kelas SMP', 'Ruang Kelas SMA', 'Lapangan Upacara'] },
+  'lapangan': { name: 'Lapangan Umum', rooms: ['Area Utama', 'Tribun'] },
+  'taman': { name: 'Taman Kota', rooms: ['Area Danau', 'Jalur Jogging'] },
+  'kantor': { name: 'Kantor Swasta', rooms: ['Cubicle', 'Ruang Meeting', 'Pantry'] },
+  'apartemen': { name: 'Apartemen', rooms: ['Lobi', 'Unit Apartemen'] },
+  'penthouse': { name: 'Penthouse', rooms: ['Balkon', 'Ruang Utama'] },
+  'mansion': { name: 'Mansion', rooms: ['Kolam Renang', 'Halaman', 'Ruang Makan'] },
+  'kantor_pemerintah': { name: 'Kantor Pemerintah', rooms: ['Loket Layanan', 'Ruang Tunggu'] },
+  'festival': { name: 'Lapak Festival', rooms: ['Area Pagi', 'Area Siang', 'Area Sore'] }
+};

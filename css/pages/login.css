@@ -1,0 +1,11 @@
+.login-bg {
+  background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop'); /* Gambar abstrak futuristik */
+  background-size: cover;
+  background-position: center;
+  animation: slowPan 30s infinite alternate linear;
+}
+
+@keyframes slowPan {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}

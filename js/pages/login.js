@@ -19,7 +19,7 @@ const genderSelect = document.getElementById('regGender');
 
 // Cek jika sudah login
 onAuthStateChanged(auth, (user) => {
-  if (user) window.location.href = 'index.html';
+  if (user) window.location.href = 'main.html';
 });
 
 // Toggle Register/Login
@@ -76,11 +76,11 @@ form.addEventListener('submit', async (e) => {
         updatedAt: serverTimestamp()
       });
 
-      window.location.href = 'index.html';
+      window.location.href = 'main.html';
     } else {
       // Login
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = 'index.html';
+      window.location.href = 'main.html';
     }
   } catch (error) {
     alert("Error: " + error.message);

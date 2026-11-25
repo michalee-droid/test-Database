@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Simulator System — Gameplay</title>
+  <meta name="description" content="Life Simulator System — simulasi kehidupan premium">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/vendor/tailwind-config.js"></script>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components/glass.css">
+  <link rel="stylesheet" href="css/components/stat-ring.css">
+  <link rel="stylesheet" href="css/components/journal.css">
+  <link rel="stylesheet" href="css/components/dock.css">
+  <link rel="stylesheet" href="css/components/modal.css">
+  <link rel="stylesheet" href="css/pages/index.css">
+</head>
+
+<body class="h-full font-sans text-white antialiased overflow-hidden bg-stone-950">
+
+  <div id="gameBackground" class="fixed inset-0 z-0 bg-cover bg-center transition-all duration-1000"></div>
+  <div id="gameVignette" class="fixed inset-0 z-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70 pointer-events-none"></div>
+
+  <canvas id="weatherCanvas" class="fixed inset-0 z-[1] pointer-events-none"></canvas>
+
+  <audio id="bgmAudio" loop preload="auto" src="assets/audio/bgm-garden.mp3"></audio>
+
+  <main id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 pb-36 sm:pb-40 flex flex-col justify-between">
+    <div id="topBarSlot" class="w-full flex flex-col gap-2.5 max-w-full sm:max-w-md md:max-w-lg z-20"></div>
+  </main>
+
+  <div id="dockSlot" class="fixed bottom-0 left-0 right-0 z-40"></div>
+
+  <!-- Modals (fragment dimuat via fetch) -->
+  <div id="modalRoomSlot"></div>
+  <div id="modalActivitiesSlot"></div>
+  <div id="modalTransportSlot"></div>
+  <div id="modalActivityTimerSlot"></div>
+  <div id="modalMinigameSlot"></div>
+
+  <script type="module" src="js/pages/index.js"></script>
+</body>
+</html>

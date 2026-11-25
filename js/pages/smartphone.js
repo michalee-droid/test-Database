@@ -54,7 +54,7 @@ async function bootstrap() {
     document.getElementById('btnBackToGame').addEventListener('click', (e) => {
       e.preventDefault();
       // Import router secara dinamis atau langsung redirect
-      window.location.href = 'index.html';
+      window.location.href = 'main.html';
     });
 
   } catch (error) {

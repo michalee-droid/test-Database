@@ -21,37 +21,31 @@ export function initActivities() {
     </button>
     <button class="glass-panel p-4 rounded-xl text-left border border-white/10 hover:border-emerald-400/50 act-btn" data-act="makan">
       <h4 class="font-bold text-white text-sm">Makan</h4>
-      <p class="text-[10px] text-stone-400">Mengurangi Lapar (+20 Kesegaran)</p>
+      <p class="text-[10px] text-stone-400">Mengurangi Lapar (+30)</p>
+    </button>
+    <button class="glass-panel p-4 rounded-xl text-left border border-white/10 hover:border-emerald-400/50 act-btn" data-act="mandi">
+      <h4 class="font-bold text-white text-sm">Mandi</h4>
+      <p class="text-[10px] text-stone-400">Membersihkan Diri (+30)</p>
     </button>
   `;
 
   grid.querySelectorAll('.act-btn').forEach(b => {
     b.addEventListener('click', (e) => {
       const type = e.currentTarget.dataset.act;
-      const state = getState(); // Ambil state terkini
+      const state = getState();
       
-      // PERBAIKAN: Gunakan spread operator (...) agar data stat lain tidak hilang
       if (type === 'tidur') {
-        patchState({ 
-          stats: { 
-            ...state.stats, 
-            energi: Math.min(100, (state.stats.energi || 0) + 30) 
-          } 
-        });
+        patchState({ stats: { ...state.stats, energi: Math.min(100, state.stats.energi + 30) } });
         window.__journal?.push({ type: 'tidur', text: 'Tidur sejenak, energi bertambah.' });
       } else if (type === 'makan') {
-        patchState({ 
-          stats: { 
-            ...state.stats, 
-            kesegaran: Math.min(100, (state.stats.kesegaran || 0) + 20) 
-          } 
-        });
-        window.__journal?.push({ type: 'makan', text: 'Makan enak, kesegaran bertambah.' });
+        patchState({ stats: { ...state.stats, kelaparan: Math.min(100, (state.stats.kelaparan || 0) + 30), kesegaran: Math.min(100, state.stats.kesegaran + 10) } });
+        window.__journal?.push({ type: 'makan', text: 'Makan enak, perut kenyang.' });
+      } else if (type === 'mandi') {
+        patchState({ stats: { ...state.stats, kebersihan: Math.min(100, (state.stats.kebersihan || 0) + 30) } });
+        window.__journal?.push({ type: 'mandi', text: 'Mandi air hangat, badan segar.' });
       }
       
       saveState();
-      
-      // Tutup modal
       modal.style.opacity = '0';
       modal.style.pointerEvents = 'none';
       modal.querySelector('.glass-modal-transparent').style.transform = 'scale(0.95)';

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smartphone Virtual — Life Simulator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/vendor/tailwind-config.js"></script>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components/glass.css">
+  <link rel="stylesheet" href="css/pages/smartphone.css">
+</head>
+
+<body class="h-full font-sans text-white antialiased bg-stone-950 overflow-hidden">
+
+  <div id="smartphoneFullPage" class="fixed inset-0 z-50 bg-stone-950/95 backdrop-blur-2xl flex flex-col overflow-hidden">
+
+    <div class="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/15 bg-black/60 shrink-0">
+      <a href="index.html" id="btnBackToGame" class="flex items-center gap-2 text-xs font-bold text-amber-300 hover:text-white transition-colors bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Kembali ke Game</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <i data-lucide="smartphone" class="w-4 h-4 text-indigo-300"></i>
+        <span class="font-serif font-bold text-sm sm:text-base text-white">Smartphone Virtual</span>
+      </div>
+      <div class="text-xs text-stone-300 font-mono" id="phonePageClock">--:--</div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6 max-w-4xl mx-auto w-full flex flex-col gap-6">
+      <div id="phonePageHomeView" class="flex flex-col gap-6">
+        <div class="p-6 rounded-3xl bg-gradient-to-r from-indigo-900/60 via-purple-900/50 to-stone-900/80 border border-indigo-400/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl">
+          <div class="text-center sm:text-left">
+            <span id="phonePageDate" class="text-xs uppercase tracking-widest text-amber-300 font-semibold">Memuat...</span>
+            <h2 id="phonePageTimeLarge" class="font-serif text-4xl sm:text-5xl font-extrabold text-white mt-1">--:--</h2>
+            <p class="text-xs text-stone-300 mt-1">Perangkat pintar serbaguna — Akses cepat layanan virtual.</p>
+          </div>
+          <div class="flex items-center gap-2 bg-black/40 px-4 py-2 rounded-2xl border border-white/10">
+            <i id="phonePageWeatherIcon" data-lucide="sun" class="w-5 h-5 text-amber-300"></i>
+            <span id="phonePageWeatherText" class="text-xs font-bold text-stone-200">—</span>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3 px-1">Aplikasi Terpasang</h3>
+          <div id="appsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5"></div>
+        </div>
+      </div>
+
+      <div id="phonePageAppDetail" class="hidden flex-1 flex-col gap-4">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <button id="btnBackToHomeApps" class="flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-white cursor-pointer">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            <span>Kembali ke Beranda HP</span>
+          </button>
+          <h3 id="phonePageAppDetailTitle" class="font-bold text-sm text-white">Nama Aplikasi</h3>
+          <div class="w-16"></div>
+        </div>
+        <div id="phonePageAppDetailBody" class="flex-1 overflow-y-auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/pages/smartphone.js"></script>
+</body>
+</html>

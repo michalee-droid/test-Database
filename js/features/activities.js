@@ -1,4 +1,4 @@
-import { patchState } from '../core/state.js';
+import { patchState, getState } from '../core/state.js';
 import { saveState } from '../core/storage.js';
 
 export function initActivities() {
@@ -6,7 +6,6 @@ export function initActivities() {
   const modal = document.getElementById('activitiesMenuModal');
   const grid = document.getElementById('activitiesGridContainer');
   
-  // Jika modal belum ada di HTML, kita buat secara dinamis untuk sementara
   if (!modal) return;
 
   btn.addEventListener('click', () => {
@@ -29,14 +28,29 @@ export function initActivities() {
   grid.querySelectorAll('.act-btn').forEach(b => {
     b.addEventListener('click', (e) => {
       const type = e.currentTarget.dataset.act;
+      const state = getState(); // Ambil state terkini
+      
+      // PERBAIKAN: Gunakan spread operator (...) agar data stat lain tidak hilang
       if (type === 'tidur') {
-        patchState({ stats: { ...window.__state?.stats, energi: Math.min(100, (window.__state?.stats.energi || 0) + 30) } });
+        patchState({ 
+          stats: { 
+            ...state.stats, 
+            energi: Math.min(100, (state.stats.energi || 0) + 30) 
+          } 
+        });
         window.__journal?.push({ type: 'tidur', text: 'Tidur sejenak, energi bertambah.' });
       } else if (type === 'makan') {
-        patchState({ stats: { ...window.__state?.stats, kesegaran: Math.min(100, (window.__state?.stats.kesegaran || 0) + 20) } });
+        patchState({ 
+          stats: { 
+            ...state.stats, 
+            kesegaran: Math.min(100, (state.stats.kesegaran || 0) + 20) 
+          } 
+        });
         window.__journal?.push({ type: 'makan', text: 'Makan enak, kesegaran bertambah.' });
       }
+      
       saveState();
+      
       // Tutup modal
       modal.style.opacity = '0';
       modal.style.pointerEvents = 'none';

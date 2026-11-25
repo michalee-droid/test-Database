@@ -1,0 +1,18 @@
+/* Container HP harus punya tinggi tetap dan overflow hidden */
+#phonePageAppDetail {
+  height: 100%;
+  overflow: hidden; /* Cegah scroll bocor ke luar HP */
+}
+
+/* Area body aplikasi yang bisa di-scroll */
+#phonePageAppDetailBody {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 2rem; /* Jarak aman di bawah */
+}
+
+/* Sembunyikan scrollbar bawaan agar terlihat seperti aplikasi mobile */
+#phonePageAppDetailBody::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}

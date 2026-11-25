@@ -1,0 +1,8 @@
+/* Layer dasar dan transisi */
+#gameBackground {
+  background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop'); /* Ganti dengan gambar latar Anda */
+  filter: brightness(0.6);
+}
+#weatherCanvas {
+  mix-blend-mode: screen;
+}

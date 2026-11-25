@@ -1,0 +1,6 @@
+.stat-ring-container svg {
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
+}
+.stat-ring-container:hover svg path:last-child {
+  filter: drop-shadow(0 0 8px currentColor);
+}

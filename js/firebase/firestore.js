@@ -1,3 +1,11 @@
+import { initializeFirestore, persistentLocalCache } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+// Ganti import getFirestore yang lama
+
+// Di file config.js, ubah inisialisasi db menjadi:
+// export const db = initializeFirestore(app, {
+//   localCache: persistentLocalCache()
+// });
+
 import {
   doc, getDoc, setDoc, updateDoc, serverTimestamp,
   collection, addDoc, query, orderBy, limit, getDocs, deleteDoc,

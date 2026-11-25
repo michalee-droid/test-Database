@@ -1,6 +1,8 @@
 import { bootstrapState } from '../core/storage.js';
 import { getState } from '../core/state.js';
 import { formatSimTime } from '../core/utils.js';
+import { renderWalletApp } from '../apps/wallet.js';
+import { renderFreelanceApp } from '../apps/freelance.js';
 
 const APPS = [
   { id: 'peta',      icon: 'compass',     color: 'emerald', name: 'Travel',    desc: 'GPS & Peta Area' },
@@ -65,6 +67,27 @@ function showHome() {
   document.getElementById('phonePageAppDetail').classList.remove('flex');
   document.getElementById('phonePageHomeView').classList.remove('hidden');
 }
+
+function openApp(appId) {
+  const app = APPS.find(a => a.id === appId);
+  if (!app) return;
+  
+  document.getElementById('phonePageHomeView').classList.add('hidden');
+  const detail = document.getElementById('phonePageAppDetail');
+  detail.classList.remove('hidden');
+  detail.classList.add('flex');
+  document.getElementById('phonePageAppDetailTitle').textContent = app.name;
+  
+  const container = document.getElementById('phonePageAppDetailBody');
+
+  // Routing Aplikasi
+  if (appId === 'wallet') {
+    renderWalletApp(container);
+  } else if (appId === 'freelance') {
+    renderFreelanceApp(container);
+  } else {
+    container.innerHTML = `<p class="text-stone-300 text-xs">Modul aplikasi <b>${app.name}</b> belum diimplementasikan. Tambahkan di <code>js/apps/${app.id}.js</code>.</p>`;
+  }
 
 bootstrap().catch(err => {
   console.error('Smartphone bootstrap gagal:', err);

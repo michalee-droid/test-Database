@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perjalanan — Life Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/vendor/tailwind-config.js"></script>
+  <link rel="stylesheet" href="css/base.css">
+</head>
+
+<body class="h-full font-sans text-white antialiased bg-stone-950 overflow-hidden">
+
+  <div id="travel-loading-screen" class="fixed inset-0 flex items-center justify-center bg-stone-950">
+    <div id="travel-loading-bg" class="absolute inset-0 bg-cover bg-center opacity-40"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/90"></div>
+
+    <div class="relative z-10 flex flex-col items-center gap-4 w-72">
+      <div class="w-12 h-12 rounded-full border-4 border-amber-300/30 border-t-amber-300 animate-spin"></div>
+      <h2 id="travel-loading-text" class="text-sm font-bold text-white text-center">Sedang dalam perjalanan...</h2>
+      <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+        <div id="travel-progress-bar" class="h-full bg-gradient-to-r from-amber-400 to-amber-200 transition-all duration-100" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/pages/travel.js"></script>
+</body>
+</html>

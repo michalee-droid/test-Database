@@ -1,6 +1,7 @@
 import { patchState, getState } from '../core/state.js';
 import { saveState } from '../core/storage.js';
 import { ACTIVITIES_DATA } from '../data/activities.js';
+import { showToast } from '../core/ui.js'; // Import UI baru
 
 export function initActivities() {
   const btn = document.getElementById('btnOpenActivitiesMenu');
@@ -13,24 +14,21 @@ export function initActivities() {
     modal.style.opacity = '1';
     modal.style.pointerEvents = 'auto';
     modal.querySelector('.glass-modal-transparent').style.transform = 'scale(1)';
-    renderActivities(); // Render ulang setiap kali modal dibuka
+    renderActivities(); 
   });
 
   function renderActivities() {
     const state = getState();
-    const currentRoom = state.location.roomId; // Mengambil nama ruangan saat ini
+    const currentRoom = state.location.roomId;
     
-    // Filter aktivitas yang hanya tersedia di ruangan ini
-    const availableActivities = ACTIVITIES_DATA.filter(act => 
-      act.targetRooms.includes(currentRoom)
-    );
+    const availableActivities = ACTIVITIES_DATA.filter(act => act.targetRooms.includes(currentRoom));
 
     if (availableActivities.length === 0) {
       grid.innerHTML = `
         <div class="col-span-full text-center py-6">
           <i data-lucide="map-pin" class="w-10 h-10 text-stone-500 mx-auto mb-2 opacity-50"></i>
           <p class="text-sm font-bold text-stone-300">Tidak Ada Aktivitas</p>
-          <p class="text-xs text-stone-500 mt-1">Anda tidak bisa melakukan apa-apa di <b>${currentRoom}</b>. Silakan pindah ruangan.</p>
+          <p class="text-xs text-stone-500 mt-1">Tidak ada yang bisa dilakukan di <b>${currentRoom}</b>.</p>
         </div>
       `;
       if (window.lucide) window.lucide.createIcons({ nodes: [grid] });
@@ -55,11 +53,8 @@ export function initActivities() {
 
     if (window.lucide) window.lucide.createIcons({ nodes: [grid] });
 
-    // Pasang Event Listener
     grid.querySelectorAll('.act-btn').forEach(b => {
-      b.addEventListener('click', (e) => {
-        executeActivity(e.currentTarget.dataset.id);
-      });
+      b.addEventListener('click', (e) => executeActivity(e.currentTarget.dataset.id));
     });
   }
 
@@ -67,21 +62,25 @@ export function initActivities() {
     const state = getState();
     const act = ACTIVITIES_DATA.find(a => a.id === activityId);
     
-    // 1. Validasi Uang
     if (act.cost > 0 && state.stats.uang < act.cost) {
-      return alert(`Uang tidak cukup! Butuh Rp ${act.cost}.`);
+      return showToast(`Uang tidak cukup! Butuh Rp ${act.cost}.`, 'error');
     }
 
-    // 2. Hitung Efek Stat
     const newStats = { ...state.stats };
     
+    // --- PROSES EFEK STAT ---
+    // 1. Energi
     if (act.effects.energi) newStats.energi = Math.max(0, Math.min(100, newStats.energi + act.effects.energi));
+    // 2. Kesegaran
     if (act.effects.kesegaran) newStats.kesegaran = Math.max(0, Math.min(100, newStats.kesegaran + act.effects.kesegaran));
+    // 3. Kebahagiaan
     if (act.effects.kebahagiaan) newStats.kebahagiaan = Math.max(0, Math.min(100, newStats.kebahagiaan + act.effects.kebahagiaan));
+    // 4. Kelaparan
     if (act.effects.kelaparan) newStats.kelaparan = Math.max(0, Math.min(100, newStats.kelaparan + act.effects.kelaparan));
+    // 5. Kebersihan
     if (act.effects.kebersihan) newStats.kebersihan = Math.max(0, Math.min(100, newStats.kebersihan + act.effects.kebersihan));
     
-    // Handle XP (Naik Level Sederhana)
+    // 6. XP & Level
     if (act.effects.kecerdasanXP) {
       newStats.kecerdasan.xp += act.effects.kecerdasanXP;
       if (newStats.kecerdasan.xp >= 100) { newStats.kecerdasan.level++; newStats.kecerdasan.xp = 0; }
@@ -91,41 +90,36 @@ export function initActivities() {
       if (newStats.fisik.xp >= 100) { newStats.fisik.level++; newStats.fisik.xp = 0; }
     }
 
-    // 3. Kurangi Uang
-    newStats.uang -= act.cost;
+    newStats.uang = Math.max(0, newStats.uang - act.cost);
 
-    // 4. Hitung Waktu Baru
+    // --- PROSES WAKTU (JAM & HARI) ---
     const newTime = { ...state.time };
-    newTime.hour += act.timeCost;
+    newTime.hour = (newTime.hour || 0) + act.timeCost;
     
-    // Jika lewat tengah malam, ganti hari
     while (newTime.hour >= 24) {
       newTime.hour -= 24;
-      newTime.day += 1;
-      // Jika lewat 30 hari, ganti bulan
+      newTime.day = (newTime.day || 1) + 1;
       if (newTime.day > 30) {
         newTime.day = 1;
-        newTime.month += 1;
+        newTime.month = (newTime.month || 0) + 1;
         if (newTime.month > 11) {
           newTime.month = 0;
-          newTime.year += 1;
+          newTime.year = (newTime.year || 2026) + 1;
         }
       }
     }
 
-    // 5. Simpan Perubahan
+    // SIMPAN STATE
     patchState({ stats: newStats, time: newTime });
     saveState();
     
-    window.__journal?.push({ 
-      type: act.id, 
-      text: `Melakukan ${act.name} di ${state.location.roomId}. Waktu berlalu ${act.timeCost} jam.` 
-    });
-
-    // Tutup modal & beri notifikasi
+    window.__journal?.push({ type: act.id, text: `Melakukan ${act.name}.` });
+    
     modal.style.opacity = '0';
     modal.style.pointerEvents = 'none';
     modal.querySelector('.glass-modal-transparent').style.transform = 'scale(0.95)';
-    alert(`Berhasil melakukan ${act.name}!`);
+    
+    // Tampilkan Popup Sukses
+    showToast(`Berhasil ${act.name}!`, 'success');
   }
 }

@@ -44,7 +44,7 @@ export function renderPetaApp(container) {
       window.__journal?.push({ type: 'travel', text: `Berjalan kaki menuju ${destName}.` });
 
       // Redirect ke halaman travel untuk animasi, lalu kembali ke index.html
-      window.location.href = `travel.html?to=${encodeURIComponent(destName)}&dur=2000&return=index.html`;
+      window.location.href = `travel.html?to=${encodeURIComponent(destName)}&dur=2000&return=main.html`;
     });
   });
 }

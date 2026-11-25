@@ -1,0 +1,8 @@
+#roomMenuModal, #activitiesMenuModal, #transportLocationModal, #activityModal {
+  transition: opacity 0.3s ease;
+}
+#roomMenuModalCard, #activitiesMenuModalCard, #transportLocationModalCard, #activityModalCard {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-open #roomMenuModal { opacity: 1; pointer-events: auto; }
+.modal-open #roomMenuModalCard { transform: scale(1); }

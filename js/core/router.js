@@ -5,7 +5,7 @@ export function navigateTo(page) {
   window.location.href = page;
 }
 
-export function goBack(fallback = 'index.html') {
+export function goBack(fallback = 'main.html') {
   flushSave();
   if (document.referrer) window.history.back();
   else window.location.href = fallback;

@@ -1,5 +1,5 @@
 import {
-  doc, getDoc, setDoc, updateDoc, serverTimestamp, arrayUnion, arrayRemove,
+  doc, getDoc, setDoc, serverTimestamp, arrayUnion, arrayRemove,
   collection, addDoc, query, orderBy, limit, getDocs, deleteDoc, runTransaction
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { db } from './config.js';
@@ -39,7 +39,7 @@ export async function clearJournal(uid) {
 }
 
 // ==========================================
-// FITUR WALLET (Dompet Digital)
+// WALLET & FINANSIAL
 // ==========================================
 export async function addWalletTransaction(uid, tx) {
   return runTransaction(db, async (transaction) => {
@@ -48,12 +48,11 @@ export async function addWalletTransaction(uid, tx) {
     if (!userDoc.exists()) throw "User tidak ditemukan";
     
     let currentUang = userDoc.data().stats.uang || 0;
-    let newUang = currentUang + tx.amount; // amount bisa plus (masuk) atau minus (keluar)
+    let newUang = currentUang + tx.amount;
     
     if (newUang < 0) throw "Saldo tidak mencukupi!";
     
     transaction.update(userRef, { 'stats.uang': newUang, updatedAt: serverTimestamp() });
-    
     const txRef = doc(collection(db, 'users', uid, 'transactions'));
     transaction.set(txRef, { ...tx, ts: serverTimestamp() });
     
@@ -68,7 +67,7 @@ export async function fetchTransactions(uid, max = 50) {
 }
 
 // ==========================================
-// FITUR PROPERTI (Real Estate)
+// PROPERTI
 // ==========================================
 export async function buyProperty(uid, propertyData, price) {
   return runTransaction(db, async (transaction) => {
@@ -76,33 +75,29 @@ export async function buyProperty(uid, propertyData, price) {
     const userDoc = await transaction.get(userRef);
     const currentUang = userDoc.data().stats.uang || 0;
     
-    if (currentUang < price) throw "Uang tidak cukup untuk membeli properti ini!";
+    if (currentUang < price) throw "Uang tidak cukup!";
     
-    // Kurangi uang
     transaction.update(userRef, { 'stats.uang': currentUang - price, updatedAt: serverTimestamp() });
-    
-    // Tambah ke daftar properti user
-    const newProperty = { ...propertyData, boughtAt: new Date().toISOString() };
+    const newProperty = { ...propertyData, boughtAt: new Date().toISOString(), condition: 100 };
     transaction.update(userRef, { properties: arrayUnion(newProperty) });
   });
 }
 
 // ==========================================
-// FITUR KARIR (Freelance/Jobs)
+// KARIR
 // ==========================================
 export async function applyForJob(uid, jobData) {
-  // Contoh logika: Cek syarat, potong energi, tambah uang
   return runTransaction(db, async (transaction) => {
     const userRef = userDocRef(uid);
     const userDoc = await transaction.get(userRef);
     const stats = userDoc.data().stats;
     
-    // Validasi syarat (contoh: butuh energi 20)
-    if (stats.energi < 20) throw "Energi tidak cukup untuk bekerja!";
+    if (stats.energi < 20) throw "Energi tidak cukup!";
+    if (stats.kelaparan < 10) throw "Anda terlalu lapar untuk bekerja!";
     
-    // Update state
     transaction.update(userRef, { 
       'stats.energi': stats.energi - 20,
+      'stats.kelaparan': stats.kelaparan - 10,
       'stats.uang': stats.uang + jobData.salary,
       updatedAt: serverTimestamp()
     });

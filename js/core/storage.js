@@ -1,7 +1,8 @@
 import { ensureAuth } from '../firebase/auth.js';
 import {
   fetchUserState, pushUserState,
-  addJournalEntry, fetchRecentJournal, clearJournal, addTransaction,
+  addJournalEntry, fetchRecentJournal, clearJournal, 
+  addWalletTransaction, fetchTransactions // PERBAIKAN: addTransaction -> addWalletTransaction
 } from '../firebase/firestore.js';
 import { setState, getState } from './state.js';
 
@@ -36,8 +37,9 @@ export const journal = {
   clear: () => currentUid && clearJournal(currentUid),
 };
 
-export const tx = {
-  add: (t) => currentUid && addTransaction(currentUid, t),
+export const wallet = {
+  transact: (tx) => currentUid && addWalletTransaction(currentUid, tx),
+  history: (max = 50) => currentUid && fetchTransactions(currentUid, max),
 };
 
 export const getUid = () => currentUid;

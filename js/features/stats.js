@@ -16,7 +16,7 @@ export function initStats() {
     const uang = stats.uang !== undefined ? stats.uang : 0;
     document.getElementById('statUangVal').textContent = `Rp ${uang.toLocaleString('id-ID')}`;
     
-    document.getElementById('simTimeDisplay').textContent = formatSimTime(time);
+    // Tampilkan Tanggal dan Jam (Format: 12 Jan 2026 - 14:00) const jamFormat = `${time.hour.toString().padStart(2, '0')}:00`; document.getElementById('simTimeDisplay').textContent = `${time.day} ${MONTH_NAMES[time.month]} ${time.year} - ${jamFormat}`;
     document.getElementById('weatherBadgeText').textContent = `${weather.temp}°C ${weather.condition}`;
     document.getElementById('currentLocNameText').textContent = state.location?.label || 'Lokasi';
 

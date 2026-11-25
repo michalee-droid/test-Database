@@ -3,26 +3,34 @@ import { formatSimTime } from '../core/utils.js';
 
 export function initStats() {
   subscribe(state => {
-    // Update Topbar Text
-    document.getElementById('charNameDisplay').textContent = state.profile.name;
-    document.getElementById('charMetaDisplay').textContent = `${state.profile.gender} • ${state.profile.city}`;
-    document.getElementById('statUangVal').textContent = `Rp ${state.stats.uang.toLocaleString('id-ID')}`;
-    document.getElementById('simTimeDisplay').textContent = formatSimTime(state.time);
-    document.getElementById('weatherBadgeText').textContent = `${state.weather.temp}°C ${state.weather.condition}`;
-    document.getElementById('currentLocNameText').textContent = state.location.label;
+    // Amankan data dengan nilai default jika undefined
+    const stats = state.stats || {};
+    const profile = state.profile || {};
+    const time = state.time || { month: 0, year: 2026 };
+    const weather = state.weather || { temp: 28, condition: 'Cerah' };
+    
+    document.getElementById('charNameDisplay').textContent = profile.name || 'Pemain';
+    document.getElementById('charMetaDisplay').textContent = `${profile.gender || 'Laki-Laki'} • ${profile.city || 'Jakarta'}`;
+    
+    // PERBAIKAN: Pastikan uang tidak undefined sebelum toLocaleString
+    const uang = stats.uang !== undefined ? stats.uang : 0;
+    document.getElementById('statUangVal').textContent = `Rp ${uang.toLocaleString('id-ID')}`;
+    
+    document.getElementById('simTimeDisplay').textContent = formatSimTime(time);
+    document.getElementById('weatherBadgeText').textContent = `${weather.temp}°C ${weather.condition}`;
+    document.getElementById('currentLocNameText').textContent = state.location?.label || 'Lokasi';
 
-    // Render Stat Rings jika belum ada
     const container = document.getElementById('statRingsContainer');
     if (!container.innerHTML.trim()) {
       container.innerHTML = `
-        ${createRing('energi', 'zap', 'amber', state.stats.energi)}
-        ${createRing('kesegaran', 'sparkles', 'emerald', state.stats.kesegaran)}
-        ${createRing('kebahagiaan', 'smile', 'pink', state.stats.kebahagiaan)}
+        ${createRing('energi', 'zap', 'amber', stats.energi || 0)}
+        ${createRing('kesegaran', 'sparkles', 'emerald', stats.kesegaran || 0)}
+        ${createRing('kebahagiaan', 'smile', 'pink', stats.kebahagiaan || 0)}
         <div class="h-8 w-px bg-white/15 mx-0.5"></div>
-        ${createRing('fisik', 'activity', 'rose', state.stats.fisik.level)}
-        ${createRing('kecerdasan', 'brain', 'purple', state.stats.kecerdasan.level)}
-        ${createRing('sosial', 'users', 'cyan', state.stats.sosial.level)}
-        ${createRing('pesona', 'sparkles', 'amber', state.stats.pesona.level)}
+        ${createRing('fisik', 'activity', 'rose', stats.fisik?.level || 1)}
+        ${createRing('kecerdasan', 'brain', 'purple', stats.kecerdasan?.level || 1)}
+        ${createRing('sosial', 'users', 'cyan', stats.sosial?.level || 1)}
+        ${createRing('pesona', 'sparkles', 'amber', stats.pesona?.level || 1)}
       `;
       if (window.lucide) window.lucide.createIcons();
     }
@@ -31,7 +39,7 @@ export function initStats() {
 
 function createRing(id, icon, color, val) {
   const isLevel = ['fisik', 'kecerdasan', 'sosial', 'pesona'].includes(id);
-  const dash = isLevel ? Math.min(100, val * 10) : val; // Konversi level ke visual bar
+  const dash = isLevel ? Math.min(100, val * 10) : val; 
   return `
     <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="${id}">
       <div class="relative w-10 h-10 flex items-center justify-center">
